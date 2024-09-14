@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Configuration
 public class ApplicationProperties {
-    @Value("${data.service.dnd5eApiUrl}")
+    @Value("${data.services.dnd5eApiUrl}")
     private String Dnd5eApiUrl;
 
 }

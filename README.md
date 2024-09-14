@@ -36,3 +36,7 @@ MIT - 2024
   - [ ] Spells-api, new endpoint. getSpellsBySchoolAndLevel()
   - [ ] Create SpellFilter model as needed.
 
+###
+Resources used:\
+[WebClient](https://www.baeldung.com/spring-5-webclient)\
+[Controller](https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration)\
