@@ -21,17 +21,18 @@ MIT - 2024
 ---
 
 ### ToDo...
-- Create a [remote repository](https://github.com/jorganization/dnd5eapi-integration?tab=readme-ov-file)
-#### Spells
-- Create a spells-interface-api(spells-api) as a SpringBoot app.
-- In spells-api create a 'hello world' endpoint.
-- Run api and hit 'hello world' endpoint via Postman.
-- Spells-api, new endpoint. getSpells(): returning all spells
-- Create Spells model.
-- (Create and import library containing spells?)
-- Spells-api, new endpoint. getSpellsByIndex()
-- Spells-api, new endpoint. getSpellsByLevel()
-- Spells-api, new endpoint. getSpellsBySchool()
-- Spells-api, new endpoint. getSpellsBySchoolAndLevel()
-- Create SpellFilter model as needed.
+- [x] Create a [remote repository](https://github.com/jorganization/dnd5eapi-integration?tab=readme-ov-file)
+- Spells
+  - [x] In spells-api create a 'hello world' endpoint.
+  - [x] Run api and hit 'hello world' endpoint via Postman.
+  - [ ] Create client to enable making requests to dnd5eapi.
+  - [ ] Add a service layer to interface with the client.
+  - [ ] Create Spells model.
+  - [ ] Spells-api, new endpoint. getSpells(): returning all spells
+  - [ ] (Create and import library containing spells?)
+  - [ ] Spells-api, new endpoint. getSpellsByIndex()
+  - [ ] Spells-api, new endpoint. getSpellsByLevel()
+  - [ ] Spells-api, new endpoint. getSpellsBySchool()
+  - [ ] Spells-api, new endpoint. getSpellsBySchoolAndLevel()
+  - [ ] Create SpellFilter model as needed.
 
