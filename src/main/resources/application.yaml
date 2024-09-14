@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: dnd5eapi-integration
+
+data:
+  services:
+    dnd5eApiUrl: https://www.dnd5eapi.co/api/
