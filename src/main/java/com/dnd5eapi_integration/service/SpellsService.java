@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class SpellService {
+public class SpellsService {
     Dnd5eApiClient dnd5eApiClient;
 
     public SpellReferences getSpells() {
