@@ -18,12 +18,27 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class Dnd5eApiClient {
 
     private ApplicationProperties applicationProperties;
+    private ObjectMapper objectMapper;
 
     public SpellReferences getSpellReferences() {
         RestTemplate restTemplate = new RestTemplate();
+        objectMapper = new ObjectMapper();
+        SpellReferences spellReferences = new SpellReferences();
+        ResponseEntity<String> response = restTemplate.getForEntity(getSpellsUri(), String.class);
+        try {
+            spellReferences = objectMapper.readValue(response.getBody(), SpellReferences.class);
+        } catch (Exception ex) {
+            log.error("Unable to create json object from String: {}\nWith Error Message:{}", response.getBody(), ex.getMessage());
+        }
+        log.info("Received Response: {}", spellReferences);
+        return spellReferences;
+    }
+
+    public SpellReferences getSpellReferencesBySchool(String school) {
+        RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
         SpellReferences spellReferences = new SpellReferences();
-        ResponseEntity<String> response = restTemplate.getForEntity(getSpellUri(), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getSpellsBySchoolUri(school), String.class);
         try {
             spellReferences = objectMapper.readValue(response.getBody(), SpellReferences.class);
         } catch (Exception ex) {
@@ -34,9 +49,20 @@ public class Dnd5eApiClient {
     }
 
 
-    private String getSpellUri() {
+    private String getSpellsUri() {
         String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
                 .pathSegment("spells")
+                .build()
+                .toUriString();
+        log.info("Making GET request: {}", url);
+        return url;
+    }
+
+
+    private String getSpellsBySchoolUri(String name) {
+        String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
+                .pathSegment("spells")
+                .queryParam("school", name)
                 .build()
                 .toUriString();
         log.info("Making GET request: {}", url);

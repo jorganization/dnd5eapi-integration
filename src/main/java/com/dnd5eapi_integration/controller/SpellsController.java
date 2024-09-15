@@ -10,25 +10,30 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/spells")
+@RequestMapping("")
 @AllArgsConstructor
 public class SpellsController {
 
     Dnd5eApiClient dnd5eApiClient;
     SpellsService spellsService;
 
-    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(
+            value = "/spells"
+            ,method = RequestMethod.GET
+    )
     public SpellReferences getSpells() {
         return spellsService.getSpells();
     }
 
-    @GetMapping(value = "/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public String helloName(@PathVariable("name") String name) {
-        String greeting = "Hello " + name;
-        log.info(greeting);
-        return greeting;
+    @RequestMapping(
+            value = "/spells"
+            ,params = {"school"}
+            ,method = RequestMethod.GET
+    )
+    public SpellReferences getSpellsBySchool(@RequestParam("school") String school) {
+        return spellsService.getSpellsBySchool(school);
     }
 
 }

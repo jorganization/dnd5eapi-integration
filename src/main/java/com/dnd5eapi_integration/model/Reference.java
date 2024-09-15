@@ -1,4 +1,4 @@
-package com.dnd5eapi_integration.model.spell;
+package com.dnd5eapi_integration.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

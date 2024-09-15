@@ -15,6 +15,9 @@ public class SpellsService {
     public SpellReferences getSpells() {
         return dnd5eApiClient.getSpellReferences();
     }
+    public SpellReferences getSpellsBySchool(String school) {
+        return dnd5eApiClient.getSpellReferencesBySchool(school);
+    }
 
 
 }
