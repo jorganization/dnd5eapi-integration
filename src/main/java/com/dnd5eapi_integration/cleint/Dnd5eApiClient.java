@@ -14,6 +14,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Optional;
 
+import static com.dnd5eapi_integration.constants.Constants.*;
+
 
 @Slf4j
 @Component
@@ -23,7 +25,7 @@ public class Dnd5eApiClient {
     private ApplicationProperties applicationProperties;
     private ObjectMapper objectMapper;
 
-    public SpellReferences getSpellReference(Optional<String> school, Optional<Integer> level, Optional<String> name) {
+    public SpellReferences getSpellReference(Optional<String> school, Optional<Integer> level, Optional<String> spellName) {
         RestTemplate restTemplate = new RestTemplate();
         objectMapper = new ObjectMapper();
         SpellReferences spellReferences = new SpellReferences();
@@ -31,42 +33,54 @@ public class Dnd5eApiClient {
         try {
             spellReferences = objectMapper.readValue(response.getBody(), SpellReferences.class);
         } catch (Exception ex) {
-            log.error("Unable to create json object from String: {}\nWith Error Message:{}", response.getBody(), ex.getMessage());
+            log.error(EXCEPTION_CAUGHT_WITH_MESSAGE, ex.getMessage());
         }
-        log.info("Received Response: {}", spellReferences);
+        log.info(RESPONSE, spellReferences);
         return spellReferences;
     }
-    private String buildSpellReferenceUrl(Optional<String> school, Optional<Integer> level) {
-        String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
-                .pathSegment("spells")
-                .queryParamIfPresent("school", school)
-                .queryParamIfPresent("level", level)
-                .build()
-                .toUriString();
-        log.info("Making GET request: {}", url);
-        return url;
-    }
 
-    public Spell getSpellDetailByIndex(String index) {
+    public Spell getSpellDetailByIndex(String spellName) {
         RestTemplate restTemplate = new RestTemplate();
         objectMapper = new ObjectMapper();
         Spell spell = new Spell();
-        ResponseEntity<String> response = restTemplate.getForEntity(getSpellDetailUri(index), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getSpellDetailUri(spellName), String.class);
         try {
             spell = objectMapper.readValue(response.getBody(), Spell.class);
         } catch (Exception ex) {
-            log.error("Unable to create json object from String: {}\nWith Error Message:{}", response.getBody(), ex.getMessage());
+            log.error(EXCEPTION_CAUGHT_WITH_MESSAGE, ex.getMessage());
         }
-        log.info("Received Response: {}", spell);
+        log.info(RESPONSE, spell);
         return spell;
     }
+
+    private String buildSpellReferenceUrl(Optional<String> school, Optional<Integer> level) {
+        String url = "";
+        try {
+            url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
+                    .pathSegment(SPELLS)
+                    .queryParamIfPresent(SCHOOL, school)
+                    .queryParamIfPresent(LEVEL, level)
+                    .build()
+                    .toUriString();
+            log.info(GET, url);
+        } catch (Exception ex) {
+            log.error(EXCEPTION_CAUGHT_WITH_MESSAGE, ex.getMessage());
+        }
+        return url;
+    }
+
     private String getSpellDetailUri(String spellName) {
-        String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
-                .pathSegment("spells")
-                .pathSegment(spellName)
-                .build()
-                .toUriString();
-        log.info("Making GET request: {}", url);
+        String url = "";
+        try {
+            url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
+                    .pathSegment(SPELLS)
+                    .pathSegment(spellName)
+                    .build()
+                    .toUriString();
+            log.info(GET, url);
+        } catch (Exception ex) {
+            log.error(EXCEPTION_CAUGHT_WITH_MESSAGE, ex.getMessage());
+        }
         return url;
     }
 

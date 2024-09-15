@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class SpellDetail {
-    Reference reference;
     Spell spell;
+    Reference reference;
 }
