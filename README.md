@@ -21,12 +21,12 @@ MIT - 2024
 ---
 
 ### ToDo...
-- [x] Create a [remote repository](https://github.com/jorganization/dnd5eapi-integration?tab=readme-ov-file)
+- [ ] Create and import library containing models.
+- [ ] Add postman collection for api.
+- Skills
+  - [ ] Create Equipment model
+  - [ ] New endpoint: getEquipment()
 - Spells
-  - [x] In spells-api create a 'hello world' endpoint.
-  - [x] Run api and hit 'hello world' endpoint via Postman.
-  - [x] Create client to enable making requests to dnd5eapi.
-  - [x] Add a service layer to interface with the client.
   - [x] Create Spells model.
   - [x] Spells-api, new endpoint. getSpells(): returning all spells
   - [x] Spells-api, new endpoint. getSpellsByIndex()
@@ -37,8 +37,14 @@ MIT - 2024
   - [x] Map spell's details and spell's reference into a custom model (SpellDetail)
   - [x] Refactor endpoints to return List<SpellDetails>
   - [x] Fix all mapping issues for each Spell
-  - [ ] Create and import library containing spells
-  - [ ] Clean up duplicated code in SpellsService
+  - [x] Clean up duplicated code in SpellsService
+- Foundation
+  - [x] Create a [remote repository](https://github.com/jorganization/dnd5eapi-integration?tab=readme-ov-file)
+  - [x] In spells-api create a 'hello world' endpoint.
+  - [x] Run api and hit 'hello world' endpoint via Postman.
+  - [x] Create client to enable making requests to dnd5eapi.
+  - [x] Add a service layer to interface with the client.
+
 
 ###
 Resources used:\

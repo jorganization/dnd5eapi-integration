@@ -51,7 +51,7 @@ public class SpellsController {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(params = { "name" }, method = RequestMethod.GET)
-    public Spell getSpellDetailBySpellIndex(@RequestParam("name") String spellName) {
+    public SpellDetail getSpellDetailBySpellIndex(@RequestParam("name") String spellName) {
         log.info("getSpellDetailBySpellIndex");
         return spellsService.getSpellDetailByName(spellName);
     }

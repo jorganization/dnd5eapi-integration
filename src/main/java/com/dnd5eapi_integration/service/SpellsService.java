@@ -1,7 +1,7 @@
 package com.dnd5eapi_integration.service;
 
 import com.dnd5eapi_integration.cleint.Dnd5eApiClient;
-import com.dnd5eapi_integration.model.Reference;
+import com.dnd5eapi_integration.model.common.Reference;
 import com.dnd5eapi_integration.model.spell.Spell;
 import com.dnd5eapi_integration.model.spell.SpellDetail;
 import com.dnd5eapi_integration.model.spell.SpellReferences;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -19,26 +20,39 @@ public class SpellsService {
     Dnd5eApiClient dnd5eApiClient;
 
     public List<SpellDetail> getSpells() {
-        SpellReferences spellReferences = dnd5eApiClient.getSpellReferences();
+        SpellReferences spellReferences = dnd5eApiClient.getSpellReference(Optional.empty(), Optional.empty(), Optional.empty());
         return mapReferencesToSpellDetail(spellReferences.getReferences());
     }
     public List<SpellDetail> getSpellsBySchool(String school) {
-        SpellReferences spellReferences = dnd5eApiClient.getSpellReferencesBySchool(school);
+        SpellReferences spellReferences = dnd5eApiClient.getSpellReference(Optional.of(school), Optional.empty(), Optional.empty());
         return mapReferencesToSpellDetail(spellReferences.getReferences());
     }
     public List<SpellDetail> getSpellsByLevel(int level) {
 
-        SpellReferences spellReferences = dnd5eApiClient.getSpellReferencesByLevel(level);
+        SpellReferences spellReferences = dnd5eApiClient.getSpellReference(Optional.empty(), Optional.of(level), Optional.empty());
         return mapReferencesToSpellDetail(spellReferences.getReferences());
     }
 
     public List<SpellDetail> getSpellsBySchoolAndLevel(String school, int level) {
-        SpellReferences spellReferences = dnd5eApiClient.getSpellsBySchoolAndLevel(school, level);
+        SpellReferences spellReferences = dnd5eApiClient.getSpellReference(Optional.of(school), Optional.of(level), Optional.empty());
         return mapReferencesToSpellDetail(spellReferences.getReferences());
     }
 
-    public Spell getSpellDetailByName(String index) {
-        return dnd5eApiClient.getSpellDetailByIndex(index);
+    public SpellDetail getSpellDetailByName(String index)
+    {
+        Spell spell = dnd5eApiClient.getSpellDetailByIndex(index);
+
+        Reference reference = new Reference();
+        reference.setName(spell.getName());
+        reference.setIndex(index);
+        reference.setUrl(spell.getUrl());
+        reference.setLevel(spell.getLevel());
+
+        SpellDetail spellDetail = new SpellDetail();
+        spellDetail.setSpell(spell);
+        spellDetail.setReference(reference);
+
+        return spellDetail;
     }
 
     private List<SpellDetail> mapReferencesToSpellDetail(List<Reference> references) {
@@ -46,7 +60,7 @@ public class SpellsService {
         references.forEach(ref -> {
             SpellDetail spellDetail = new SpellDetail();
             spellDetail.setReference(ref);
-            spellDetail.setSpell(getSpellDetailByName(ref.getIndex()));
+            spellDetail.setSpell(getSpellDetailByName(ref.getIndex()).getSpell());
             spellDetailList.add(spellDetail);
         });
         return spellDetailList;

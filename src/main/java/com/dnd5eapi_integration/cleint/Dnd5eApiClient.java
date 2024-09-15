@@ -2,7 +2,6 @@ package com.dnd5eapi_integration.cleint;
 
 
 import com.dnd5eapi_integration.model.spell.Spell;
-import com.dnd5eapi_integration.model.spell.SpellDetail;
 import com.dnd5eapi_integration.model.spell.SpellReferences;
 import com.dnd5eapi_integration.property.ApplicationProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Optional;
+
 
 @Slf4j
 @Component
@@ -22,11 +23,11 @@ public class Dnd5eApiClient {
     private ApplicationProperties applicationProperties;
     private ObjectMapper objectMapper;
 
-    public SpellReferences getSpellReferences() {
+    public SpellReferences getSpellReference(Optional<String> school, Optional<Integer> level, Optional<String> name) {
         RestTemplate restTemplate = new RestTemplate();
         objectMapper = new ObjectMapper();
         SpellReferences spellReferences = new SpellReferences();
-        ResponseEntity<String> response = restTemplate.getForEntity(getSpellsUri(), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(buildSpellReferenceUrl(school, level), String.class);
         try {
             spellReferences = objectMapper.readValue(response.getBody(), SpellReferences.class);
         } catch (Exception ex) {
@@ -35,82 +36,11 @@ public class Dnd5eApiClient {
         log.info("Received Response: {}", spellReferences);
         return spellReferences;
     }
-    private String getSpellsUri() {
+    private String buildSpellReferenceUrl(Optional<String> school, Optional<Integer> level) {
         String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
                 .pathSegment("spells")
-                .build()
-                .toUriString();
-        log.info("Making GET request: {}", url);
-        return url;
-    }
-
-
-    public SpellReferences getSpellReferencesBySchool(String school) {
-        RestTemplate restTemplate = new RestTemplate();
-        ObjectMapper objectMapper = new ObjectMapper();
-        SpellReferences spellReferences = new SpellReferences();
-        ResponseEntity<String> response = restTemplate.getForEntity(getSpellsBySchoolUri(school), String.class);
-        try {
-            spellReferences = objectMapper.readValue(response.getBody(), SpellReferences.class);
-        } catch (Exception ex) {
-            log.error("Unable to create json object from String: {}\nWith Error Message:{}", response.getBody(), ex.getMessage());
-        }
-        log.info("Received Response: {}", spellReferences);
-        return spellReferences;
-    }
-    private String getSpellsBySchoolUri(String name) {
-        String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
-                .pathSegment("spells")
-                .queryParam("school", name)
-                .build()
-                .toUriString();
-        log.info("Making GET request: {}", url);
-        return url;
-    }
-
-
-    public SpellReferences getSpellReferencesByLevel(int level) {
-        RestTemplate restTemplate = new RestTemplate();
-        ObjectMapper objectMapper = new ObjectMapper();
-        SpellReferences spellReferences = new SpellReferences();
-        ResponseEntity<String> response = restTemplate.getForEntity(getSpellsByLevelUri(level), String.class);
-        try {
-            spellReferences = objectMapper.readValue(response.getBody(), SpellReferences.class);
-        } catch (Exception ex) {
-            log.error("Unable to create json object from String: {}\nWith Error Message:{}", response.getBody(), ex.getMessage());
-        }
-        log.info("Received Response: {}", spellReferences);
-        return spellReferences;
-    }
-    private String getSpellsByLevelUri(int level) {
-        String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
-                .pathSegment("spells")
-                .queryParam("level", level)
-                .build()
-                .toUriString();
-        log.info("Making GET request: {}", url);
-        return url;
-    }
-
-
-    public SpellReferences getSpellsBySchoolAndLevel(String school, int level) {
-        RestTemplate restTemplate = new RestTemplate();
-        ObjectMapper objectMapper = new ObjectMapper();
-        SpellReferences spellReferences = new SpellReferences();
-        ResponseEntity<String> response = restTemplate.getForEntity(getSpellsBySchoolAndLevelUri(school, level), String.class);
-        try {
-            spellReferences = objectMapper.readValue(response.getBody(), SpellReferences.class);
-        } catch (Exception ex) {
-            log.error("Unable to create json object from String: {}\nWith Error Message:{}", response.getBody(), ex.getMessage());
-        }
-        log.info("Received Response: {}", spellReferences);
-        return spellReferences;
-    }
-    private String getSpellsBySchoolAndLevelUri(String school, int level) {
-        String url = UriComponentsBuilder.fromUriString(applicationProperties.getDnd5eApiUrl())
-                .pathSegment("spells")
-                .queryParam("school", school)
-                .queryParam("level", level)
+                .queryParamIfPresent("school", school)
+                .queryParamIfPresent("level", level)
                 .build()
                 .toUriString();
         log.info("Making GET request: {}", url);
@@ -139,7 +69,6 @@ public class Dnd5eApiClient {
         log.info("Making GET request: {}", url);
         return url;
     }
-
 
 }
 

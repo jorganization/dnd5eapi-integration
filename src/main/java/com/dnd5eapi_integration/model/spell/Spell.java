@@ -1,7 +1,7 @@
 package com.dnd5eapi_integration.model.spell;
 
-import com.dnd5eapi_integration.model.Reference;
-import com.dnd5eapi_integration.model.damage.Damage;
+import com.dnd5eapi_integration.model.common.Reference;
+import com.dnd5eapi_integration.model.common.damage.Damage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
