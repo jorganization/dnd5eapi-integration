@@ -25,10 +25,10 @@ MIT - 2024
 - Spells
   - [x] In spells-api create a 'hello world' endpoint.
   - [x] Run api and hit 'hello world' endpoint via Postman.
-  - [ ] Create client to enable making requests to dnd5eapi.
-  - [ ] Add a service layer to interface with the client.
-  - [ ] Create Spells model.
-  - [ ] Spells-api, new endpoint. getSpells(): returning all spells
+  - [x] Create client to enable making requests to dnd5eapi.
+  - [x] Add a service layer to interface with the client.
+  - [x] Create Spells model.
+  - [x] Spells-api, new endpoint. getSpells(): returning all spells
   - [ ] (Create and import library containing spells?)
   - [ ] Spells-api, new endpoint. getSpellsByIndex()
   - [ ] Spells-api, new endpoint. getSpellsByLevel()
@@ -40,3 +40,5 @@ MIT - 2024
 Resources used:\
 [WebClient](https://www.baeldung.com/spring-5-webclient)\
 [Controller](https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration)\
+[RestTemplate](https://www.baeldung.com/rest-template)\
+ 
