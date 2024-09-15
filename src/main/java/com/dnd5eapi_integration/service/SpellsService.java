@@ -18,6 +18,13 @@ public class SpellsService {
     public SpellReferences getSpellsBySchool(String school) {
         return dnd5eApiClient.getSpellReferencesBySchool(school);
     }
+    public SpellReferences getSpellsByLevel(int level) {
+        return dnd5eApiClient.getSpellReferencesByLevel(level);
+    }
+
+    public SpellReferences getSpellsBySchoolAndLevel(String school,int level) {
+        return dnd5eApiClient.getSpellsBySchoolAndLevel(school, level);
+    }
 
 
 }
