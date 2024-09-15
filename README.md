@@ -29,12 +29,13 @@ MIT - 2024
   - [x] Add a service layer to interface with the client.
   - [x] Create Spells model.
   - [x] Spells-api, new endpoint. getSpells(): returning all spells
-  - [ ] (Create and import library containing spells?)
-  - [ ] Spells-api, new endpoint. getSpellsByIndex()
-  - [ ] Spells-api, new endpoint. getSpellsByLevel()
-  - [ ] Spells-api, new endpoint. getSpellsBySchool()
-  - [ ] Spells-api, new endpoint. getSpellsBySchoolAndLevel()
-  - [ ] Create SpellFilter model as needed.
+  - [x] Spells-api, new endpoint. getSpellsByIndex()
+  - [x] Spells-api, new endpoint. getSpellsByLevel()
+  - [x] Spells-api, new endpoint. getSpellsBySchool()
+  - [x] Spells-api, new endpoint. getSpellsBySchoolAndLevel()
+  - [ ] Create and import library containing spells
+  - [ ] Clean up duplicated code in SpellsService
+  - [ ] Fetch spell details
 
 ###
 Resources used:\
