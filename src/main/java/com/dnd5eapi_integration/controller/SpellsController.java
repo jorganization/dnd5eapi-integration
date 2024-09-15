@@ -1,6 +1,6 @@
 package com.dnd5eapi_integration.controller;
 
-import com.dnd5eapi_integration.cleint.Dnd5eApiClient;
+import com.dnd5eapi_integration.cleint.SpellsClient;
 import com.dnd5eapi_integration.model.spell.SpellDetail;
 import com.dnd5eapi_integration.service.SpellsService;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SpellsController {
 
-    Dnd5eApiClient dnd5eApiClient;
+    SpellsClient spellsClient;
     SpellsService spellsService;
 
     @ResponseStatus(HttpStatus.OK)

@@ -20,7 +20,7 @@ import static com.dnd5eapi_integration.constants.Constants.*;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class Dnd5eApiClient {
+public class SpellsClient {
 
     private ApplicationProperties applicationProperties;
     private ObjectMapper objectMapper;

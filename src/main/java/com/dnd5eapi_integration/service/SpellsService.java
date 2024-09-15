@@ -1,6 +1,6 @@
 package com.dnd5eapi_integration.service;
 
-import com.dnd5eapi_integration.cleint.Dnd5eApiClient;
+import com.dnd5eapi_integration.cleint.SpellsClient;
 import com.dnd5eapi_integration.model.common.Reference;
 import com.dnd5eapi_integration.model.spell.Spell;
 import com.dnd5eapi_integration.model.spell.SpellDetail;
@@ -18,10 +18,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SpellsService {
 
-    Dnd5eApiClient dnd5eApiClient;
+    SpellsClient spellsClient;
 
     public List<SpellDetail> getSpellReferences(Optional<String> school, Optional<Integer> level, Optional<String> name) {
-        SpellReferences spellReferences = dnd5eApiClient.getSpellReference(school, level, name);
+        SpellReferences spellReferences = spellsClient.getSpellReference(school, level, name);
         return mapReferencesToSpellDetail(spellReferences.getReferences());
     }
 
@@ -37,7 +37,7 @@ public class SpellsService {
     }
 
     public SpellDetail getSpellDetailByName(String name) {
-        Spell spell = dnd5eApiClient.getSpellDetailByIndex(name);
+        Spell spell = spellsClient.getSpellDetailByIndex(name);
 
         Reference reference = new Reference();
         reference.setName(spell.getName());
