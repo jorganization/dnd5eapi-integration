@@ -33,9 +33,12 @@ MIT - 2024
   - [x] Spells-api, new endpoint. getSpellsByLevel()
   - [x] Spells-api, new endpoint. getSpellsBySchool()
   - [x] Spells-api, new endpoint. getSpellsBySchoolAndLevel()
+  - [x] Fetch spell's details
+  - [x] Map spell's details and spell's reference into a custom model (SpellDetail)
+  - [x] Refactor endpoints to return List<SpellDetails>
+  - [x] Fix all mapping issues for each Spell
   - [ ] Create and import library containing spells
   - [ ] Clean up duplicated code in SpellsService
-  - [ ] Fetch spell details
 
 ###
 Resources used:\

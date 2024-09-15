@@ -1,9 +1,11 @@
 package com.dnd5eapi_integration.model.spell;
 
+import com.dnd5eapi_integration.model.Reference;
 import com.dnd5eapi_integration.model.damage.Damage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Data
@@ -30,18 +32,24 @@ public class Spell {
     boolean concentration;
     @JsonProperty("casting_time")
     String castingTime;
+    @JsonProperty("heal_at_slot_level")
+    HashMap<String, String> healAtSlotLevel;
+    @JsonProperty("area_of_effect")
+    AreaOfEffect areaOfEffect;
     @JsonProperty("level")
     int level;
-    @JsonProperty("attackType")
+    @JsonProperty("attack_type")
     String attackType;
     @JsonProperty("damage")
     Damage damage;
+    @JsonProperty("dc")
+    DiceCheck dc;
     @JsonProperty("school")
-    School school;
+    Reference school;
     @JsonProperty("classes")
-    Classes classes;
+    List<Reference> classes;
     @JsonProperty("subclasses")
-    Subclasses subclasses;
+    List<Reference> subclasses;
     @JsonProperty("url")
     String url;
 }
