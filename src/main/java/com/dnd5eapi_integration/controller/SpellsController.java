@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("")
+@RequestMapping("/spells")
 @AllArgsConstructor
 public class SpellsController {
 
@@ -18,40 +18,25 @@ public class SpellsController {
     SpellsService spellsService;
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(
-            value = "/spells"
-            ,method = RequestMethod.GET
-    )
+    @RequestMapping(method = RequestMethod.GET)
     public SpellReferences getSpells() {
         return spellsService.getSpells();
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(
-            value = "/spells"
-            ,params = {"school"}
-            ,method = RequestMethod.GET
-    )
+    @RequestMapping(params = {"school"},method = RequestMethod.GET)
     public SpellReferences getSpellsBySchool(@RequestParam("school") String school) {
         return spellsService.getSpellsBySchool(school);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(
-            value = "/spells"
-            ,params = {"level"}
-            ,method = RequestMethod.GET
-    )
+    @RequestMapping(params = {"level"},method = RequestMethod.GET)
     public SpellReferences getSpellsByLevel(@RequestParam("level") int level) {
         return spellsService.getSpellsByLevel(level);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(
-            value = "/spells"
-            ,params = {"school", "level"}
-            ,method = RequestMethod.GET
-    )
+    @RequestMapping(params = {"school", "level"},method = RequestMethod.GET)
     public SpellReferences getSpellsBySchoolAndLevel(@RequestParam("level") int level, @RequestParam("school") String school) {
         return spellsService.getSpellsBySchoolAndLevel(school, level);
     }
