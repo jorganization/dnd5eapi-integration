@@ -17,7 +17,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SpellsController {
 
-    SpellsClient spellsClient;
     SpellsService spellsService;
 
     @ResponseStatus(HttpStatus.OK)
